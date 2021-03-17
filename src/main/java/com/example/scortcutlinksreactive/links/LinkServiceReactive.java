@@ -3,6 +3,7 @@ package com.example.scortcutlinksreactive.links;
 
 import com.example.scortcutlinksreactive.common.ShortLink;
 import org.springframework.data.redis.core.ReactiveRedisOperations;
+import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.time.Duration;
@@ -12,7 +13,7 @@ import java.time.Duration;
  * @return
  */
 
-
+@Service
 public class LinkServiceReactive implements LinksService {
 
     private final Long SAVE_TIMEOUT_MS = 5000L;
@@ -41,7 +42,7 @@ public class LinkServiceReactive implements LinksService {
 
     @Override
     public Mono<ShortLink> randomPull() {
-        return randomKey().flatMap(operations.opsForValue()::get);
+        return get(randomKey());
     }
 
     @Override
